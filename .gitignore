@@ -217,4 +217,4 @@ derby.log
 
 # Local scratch output
 tmp/
-/cluster_docs/
+cluster_docs/
