@@ -3,10 +3,13 @@ name = "data-intensive-computing"
 version = "0.1.0"
 description = "Local PySpark exercises managed with uv."
 readme = "README.md"
-requires-python = ">=3.11,<3.13"
+requires-python = "==3.12.*"
 dependencies = [
     "mrjob>=0.7,<0.8",
     "pyspark>=3.5,<4.0",
+    # mrjob 0.7.x still imports distutils; setuptools re-provides it on 3.12
+    # via its _distutils_hack, so we pin it for a working local runner.
+    "setuptools<72",
 ]
 
 [dependency-groups]
