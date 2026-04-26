@@ -4,25 +4,6 @@
 ``--stopwords`` and ``--stats`` are declared with ``add_file_arg`` so mrjob
 uploads them to every task's working directory.
 
-<key, value> design
--------------------
-Step 1 (compute ``N_tc`` = #docs in category ``c`` that contain term ``t``):
-
-* map     ``(None, raw JSON line)  ->  ((term, category), 1)`` for every
-  unique term in the review after tokenization and stop-word filtering.
-* combine ``((term, category), [1, 1, ...])  ->  ((term, category), partial)``.
-* reduce  ``((term, category), [partial, ...])  ->  ((term, category), N_tc)``.
-
-Step 2 (compute chi-square per ``(term, category)``):
-
-* map    ``((term, category), N_tc)  ->  (term, (category, N_tc))``.
-* reduce ``(term, [(category, N_tc), ...])  ->  (category, (chi^2, term))``.
-  The reducer derives ``N_t`` by summing ``N_tc`` across all incoming
-  categories and reads ``N`` and ``N_c`` from the side-input stats file.
-
-Step 3 (keep the top N terms per category):
-
-* reduce ``(category, [(chi^2, term), ...])  ->  (category, [(term, chi^2),...])``.
 A bounded heap keeps the top-N records per category in one pass.
 """
 
@@ -150,17 +131,6 @@ class MRChiSquare(MRJob):
 
     def reducer_s2(self, term, values):
         """Compute chi^2 for every ``(term, category)`` incoming under ``term``.
-
-        Uses the 2x2 contingency table
-
-        =======  ================================  ===========================
-                 contains term ``t``               does *not* contain ``t``
-        =======  ================================  ===========================
-        in ``c``  A = N_tc                          C = N_c - N_tc
-        not ``c`` B = N_t - N_tc                    D = N - N_c - N_t + N_tc
-        =======  ================================  ===========================
-
-        chi^2 = N * (A*D - B*C)^2 / (N_t * (N - N_t) * N_c * (N - N_c)).
         """
         pairs = [(str(c), int(n)) for c, n in values]
         N_t = sum(n for _, n in pairs)
@@ -195,8 +165,6 @@ class MRChiSquare(MRJob):
 
     # --------------------------------------------------------------- pipeline
     def steps(self):
-        # Per-step reducer counts baked into each MRStep's jobconf so the
-        # Hadoop runner picks them up via ``-D mapreduce.job.reduces=N``.
         return [
             MRStep(
                 mapper_init=self.mapper_init_s1,

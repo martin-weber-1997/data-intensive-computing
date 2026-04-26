@@ -1,15 +1,10 @@
-"""Orchestrator that runs the two MRJobs and writes ``output.txt``.
-
-
+"""
 Pipeline
 
     1/2 MRDocCounts  ->  {<category>: N_c, ...}
     2/2 MRChiSquare  ->  (category, [(term, chi^2), ...])
     after:             ->  output.txt (sorted lines + merged dictionary)
 
-The stats produced by step 1 are written to a temporary JSON file and handed
-to step 2 as a side-input via ``--stats``. The stopwords file is uploaded the
-same way with ``--stopwords and needs to be in the data folder on the cluster``.
 """
 
 from __future__ import annotations
@@ -24,9 +19,7 @@ from pathlib import Path
 from data_intensive_computing.assignment1.chi_square import MRChiSquare
 from data_intensive_computing.assignment1.doc_counts import MRDocCounts
 
-# Path to the hadoop-streaming jar on the TUWien LBD cluster. Override with
-# the ``HADOOP_STREAMING_JAR`` environment variable if your cluster puts the
-# jar somewhere else.
+# Path to the hadoop-streaming jar on the TUWien LBD cluster
 DEFAULT_STREAMING_JAR = "/usr/lib/hadoop/tools/lib/hadoop-streaming.jar"
 
 

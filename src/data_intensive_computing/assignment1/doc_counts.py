@@ -11,10 +11,7 @@ Newline-delimited JSON reviews, one per line, with a ``category`` field.
 
 Output
 ------
-One ``(category, count)`` pair per category. The orchestrator (:mod:`.run`)
-reads this output and persists it as the side input for
-:class:`.chi_square.MRChiSquare`; the global ``N`` is derived as
-``sum(N_c.values())``.
+One ``(category, count)`` pair per category. 
 """
 
 from __future__ import annotations
