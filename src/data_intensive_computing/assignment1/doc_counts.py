@@ -41,11 +41,23 @@ class MRDocCounts(MRJob):
         yield category, 1
 
     def combiner(self, key, values):
-        """Sum partial counts on the mapper side to cut network traffic."""
+        """Sum partial counts on the mapper side to cut network traffic.
+
+        :param key: ``category`` (str).
+        :param values: iterable of partial counts ``[1, 1, ...]`` from
+            ``mapper`` for this category within one map task.
+        :yields: ``(category, partial_sum)`` pairs.
+        """
         yield key, sum(values)
 
     def reducer(self, key, values):
-        """Sum combiner output to produce the final ``(key, count)`` pair."""
+        """Sum combiner output to produce the final ``(category, N_c)`` pair.
+
+        :param key: ``category`` (str).
+        :param values: iterable of partial sums from all combiners for this
+            category.
+        :yields: ``(category, N_c)`` — the total review count per category.
+        """
         yield key, sum(values)
 
 

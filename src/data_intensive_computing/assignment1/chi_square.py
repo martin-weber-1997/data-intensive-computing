@@ -106,18 +106,35 @@ class MRChiSquare(MRJob):
             yield (term, category), 1
 
     def combiner_s1(self, key, values):
-        """Locally sum partial counts for the same ``(term, category)`` key."""
+        """Locally sum partial counts for the same ``(term, category)`` key.
+
+        :param key: ``(term, category)`` tuple.
+        :param values: iterable of partial counts ``[1, 1, ...]`` from
+            ``mapper_s1`` within one map task.
+        :yields: ``((term, category), partial_sum)`` pairs.
+        """
         yield key, sum(values)
 
     def reducer_s1(self, key, values):
-        """Finalize ``N_tc`` = total docs in ``c`` containing ``t``."""
+        """Finalize ``N_tc`` = total docs in ``c`` containing ``t``.
+
+        :param key: ``(term, category)`` tuple.
+        :param values: iterable of partial sums from all combiners for this
+            ``(term, category)``.
+        :yields: ``((term, category), N_tc)`` — document frequency of ``t``
+            in ``c``.
+        """
         yield key, sum(values)
 
     # ------------------------------------------------------------------ step 2
     def mapper_s2(self, key, value):
         """Re-key step-1 output by term so one reducer sees all categories.
 
-        ``key`` arrives as the JSON-decoded list ``[term, category]``.
+        :param key: ``(term, category)`` — arrives as the JSON-decoded list
+            ``[term, category]``.
+        :param value: ``N_tc`` (int) — document frequency of ``term`` in
+            ``category`` from step 1.
+        :yields: ``(term, (category, N_tc))`` pairs.
         """
         term, category = key
         yield term, (category, value)
@@ -131,6 +148,13 @@ class MRChiSquare(MRJob):
 
     def reducer_s2(self, term, values):
         """Compute chi^2 for every ``(term, category)`` incoming under ``term``.
+
+        :param term: the unigram (str).
+        :param values: iterable of ``(category, N_tc)`` pairs covering every
+            category in which ``term`` occurs.
+        :yields: ``(category, (chi^2, term))`` — one pair per category the
+            term appears in. ``chi^2`` is placed first so step 3 can sort
+            on it directly.
         """
         pairs = [(str(c), int(n)) for c, n in values]
         N_t = sum(n for _, n in pairs)
@@ -154,6 +178,11 @@ class MRChiSquare(MRJob):
     # ------------------------------------------------------------------ step 3
     def reducer_s3(self, category, values):
         """Select the top-N ``(chi^2, term)`` pairs for ``category``.
+
+        :param category: category name (str).
+        :param values: iterable of ``(chi^2, term)`` pairs from step 2.
+        :yields: ``(category, [(term, chi^2), ...])`` — list of length at
+            most ``top_n``, sorted by ``chi^2`` descending.
 
         The bounded heap keeps memory use at ``top_n`` items per category.
         """
