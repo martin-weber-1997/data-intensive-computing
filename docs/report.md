@@ -194,6 +194,14 @@ All paths are relative; the HDFS input path is the only positional
 argument. Reducer counts can be overridden via env vars
 (`REDUCERS_S1`, `REDUCERS_S2`, `REDUCERS_S3`).
 
+The driver resolves its own directory so it works regardless of the
+caller's `cwd`, prefers `uv run python` when available (and otherwise
+falls back to `python3` with `PYTHONPATH` pointing at `src/` for the
+cluster), and only injects `--hadoop-streaming-jar` when
+`RUNNER=hadoop` (overridable via `HADOOP_STREAMING_JAR`). This keeps a
+single entry point for both local and cluster execution without
+duplicating wiring in `run.py`.
+
 ## 4. Conclusions
 
 The pipeline separates the two classes of aggregation the
