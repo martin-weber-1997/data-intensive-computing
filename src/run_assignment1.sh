@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Run the Assignment 1 chi-square pipeline.
 #
+# Run from the repository root so the default relative paths
+# (data/reviews_devset.json, data/stopwords.txt, output.txt) resolve.
+#
 # Local testing (inline runner, the default):
-#   ./run_assignment1.sh                           # uses data/reviews_devset.json
-#   ./run_assignment1.sh path/to/input.json
+#   ./src/run_assignment1.sh                           # uses data/reviews_devset.json
+#   ./src/run_assignment1.sh path/to/input.json
 #
 # Hadoop streaming on the TUWien LBD cluster:
-#   RUNNER=hadoop ./run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
-#   RUNNER=hadoop ./run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json
+#   RUNNER=hadoop ./src/run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
+#   RUNNER=hadoop ./src/run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json
 #
 # Reducer counts per step of the chi-square MRJob (defaults chosen after
 # experimenting on the LBD cluster; see docs/performance.md):
@@ -18,11 +21,11 @@
 #
 # Example:
 #   RUNNER=hadoop REDUCERS_S1=10 REDUCERS_S2=10 REDUCERS_S3=10 \
-#     ./run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
+#     ./src/run_assignment1.sh hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
 set -euo pipefail
 
-# Resolve the script's own directory so this works regardless of the
-# caller's cwd (important on the cluster where PYTHONPATH needs to point at this repo's src/ layout).
+# The script lives in src/, so SCRIPT_DIR is the src/ directory itself —
+# used as PYTHONPATH on the cluster fallback path below.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 INPUT="${1:-data/reviews_devset.json}"
@@ -40,7 +43,7 @@ if command -v uv >/dev/null 2>&1; then
     PY=(uv run python)
 else
     PY=(python3)
-    export PYTHONPATH="${SCRIPT_DIR}/src${PYTHONPATH:+:$PYTHONPATH}"
+    export PYTHONPATH="${SCRIPT_DIR}${PYTHONPATH:+:$PYTHONPATH}"
 fi
 
 EXTRA_ARGS=()

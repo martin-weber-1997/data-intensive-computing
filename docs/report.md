@@ -18,7 +18,7 @@ Deliverables:
   by the merged alphabetical dictionary.
 * A report 
 * A `src/` directory with the fully documented MapReduce implementation
-  and a single `run_assignment1.sh` driver.
+  and a single `src/run_assignment1.sh` driver.
 
 ## 2. Problem Overview
 
@@ -179,14 +179,14 @@ A single driver script covers both local and cluster execution:
 
 ```bash
 # Local dev (inline runner, devset)
-./run_assignment1.sh data/reviews_devset.json
+./src/run_assignment1.sh data/reviews_devset.json
 
 # Cluster (devset)
-RUNNER=hadoop ./run_assignment1.sh \
+RUNNER=hadoop ./src/run_assignment1.sh \
     hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
 
 # Cluster (full 56 GB set — only after a clean devset run)
-RUNNER=hadoop ./run_assignment1.sh \
+RUNNER=hadoop ./src/run_assignment1.sh \
     hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json
 ```
 

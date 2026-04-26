@@ -79,7 +79,7 @@ module's docstring.
 ### Run it locally (development set)
 
 ```bash
-./run_assignment1.sh
+./src/run_assignment1.sh
 ```
 
 is equivalent to
@@ -106,13 +106,13 @@ Pick a different runner with `--runner local` (subprocess-based) or
 
 The LBD cluster already runs Python 3.12.3 and has `mrjob` available on the
 JupyterLab/login environment, so you don't need to set up `uv` there — the
-provided `run_assignment1.sh` automatically falls back to `python3` when
+provided `src/run_assignment1.sh` automatically falls back to `python3` when
 `uv` isn't on `$PATH`.
 
 Steps:
 
 1. Copy the whole project (or at minimum the `src/` tree, `data/stopwords.txt`
-   and `run_assignment1.sh`) to your home directory on the cluster. One
+   and `src/run_assignment1.sh`) to your home directory on the cluster. One
    option is to `scp` / `rsync` from a local checkout; another is to
    upload a zip through JupyterLab.
 2. (Optional but recommended) `cp -r $HOME/dataLAB/demos $HOME/datalab-demos-copy`
@@ -120,7 +120,7 @@ Steps:
 3. Run the pipeline against the dev set first:
 
    ```bash
-   RUNNER=hadoop ./run_assignment1.sh \
+   RUNNER=hadoop ./src/run_assignment1.sh \
        hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
    ```
 
@@ -132,7 +132,7 @@ Steps:
 4. Only after the dev-set output looks right, run on the full 56 GB set:
 
    ```bash
-   RUNNER=hadoop ./run_assignment1.sh \
+   RUNNER=hadoop ./src/run_assignment1.sh \
        hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json
    ```
 
@@ -140,7 +140,7 @@ Override the streaming jar path if needed:
 
 ```bash
 HADOOP_STREAMING_JAR=/some/other/hadoop-streaming.jar \
-    RUNNER=hadoop ./run_assignment1.sh ...
+    RUNNER=hadoop ./src/run_assignment1.sh ...
 ```
 
 What the orchestrator passes to mrjob on the cluster:
