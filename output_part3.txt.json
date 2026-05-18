@@ -1,0 +1,219 @@
+{
+  "seed": 11817173,
+  "cv_mode": "manual_precomputed_features_grid",
+  "filter_modes": [
+    "chisq_2000_vs_variancethreshold"
+  ],
+  "split": {
+    "train": 47492,
+    "val": 15502,
+    "test": 15835
+  },
+  "per_mode": {
+    "chisq_2000_vs_variancethreshold": {
+      "variant": "chisq_top2000",
+      "best_val_f1": 0.6106709579278226,
+      "test_f1": 0.6029043752281237,
+      "best_params": {
+        "regParam": 0.01,
+        "standardization": true,
+        "maxIter": 50
+      },
+      "elapsed_seconds": 1237.8521521091461
+    }
+  },
+  "all_results": [
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.6106709579278226,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.6098178685107468,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.6079283128129178,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.6053898181329191,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.6036527332352345,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5936403727099135,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5869953038380177,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.585217124246203,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5823119536991164,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.5781773245864565,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5710506232230789,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.5683918857881114,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5465965252396262,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.5431538238707818,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.5137622099335775,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.51297322791093,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.512080591700758,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.2148877821678163,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.2142830716802305,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.21415837429766174,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.21415837429766174,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.0395040621205399,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "chisq_top2000",
+      "val_f1": 0.029148639613831562,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    },
+    {
+      "variant": "variance_threshold=0.001",
+      "val_f1": 0.000210879813482077,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50,
+      "filter_mode": "chisq_2000_vs_variancethreshold"
+    }
+  ]
+}

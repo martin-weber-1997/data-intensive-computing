@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="760" viewBox="0 0 1100 760">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Inter,Arial,sans-serif;fill:#111827}.small{font-size:12px}.label{font-size:13px}.title{font-size:22px;font-weight:700}.subtitle{font-size:14px;fill:#4b5563}.axis{stroke:#d1d5db;stroke-width:1}.grid{stroke:#e5e7eb;stroke-width:1}.barlabel{font-size:11px;fill:#374151}.legend{font-size:12px;fill:#374151}</style>
+<text x="70" y="38" class="title">Assignment 2 Part 3: SVM Grid Search Results</text>
+<text x="70" y="62" class="subtitle">Best dev-set model: chisq_top2000 | regParam=0.01, standardization=True, maxIter=50 | val F1=0.6038, test F1=0.6041</text>
+<text x="70" y="85" class="label" font-weight="700">Top validation F1 configs</text>
+<line x1="70.0" y1="105" x2="70.0" y2="465" class="grid"/>
+<text x="60.0" y="483" class="small">0.0</text>
+<line x1="214.6" y1="105" x2="214.6" y2="465" class="grid"/>
+<text x="204.6" y="483" class="small">0.2</text>
+<line x1="359.2" y1="105" x2="359.2" y2="465" class="grid"/>
+<text x="349.2" y="483" class="small">0.4</text>
+<line x1="503.8" y1="105" x2="503.8" y2="465" class="grid"/>
+<text x="493.8" y="483" class="small">0.6</text>
+<line x1="70" y1="465" x2="540" y2="465" class="axis"/>
+<rect x="70" y="105" width="436.6" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="120" class="barlabel" fill="#fff">#1 chisq_top2000 r=0.01 std=T it=50</text>
+<text x="512.6" y="120" class="small">0.6038</text>
+<rect x="70" y="133" width="436.2" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="148" class="barlabel" fill="#fff">#2 chisq_top2000 r=0.01 std=T it=10</text>
+<text x="512.2" y="148" class="small">0.6032</text>
+<rect x="70" y="161" width="435.8" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="176" class="barlabel" fill="#fff">#3 chisq_top2000 r=0.1 std=T it=10</text>
+<text x="511.8" y="176" class="small">0.6027</text>
+<rect x="70" y="189" width="432.4" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="204" class="barlabel" fill="#fff">#4 variance r=0.1 std=T it=50</text>
+<text x="508.4" y="204" class="small">0.5980</text>
+<rect x="70" y="217" width="430.0" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="232" class="barlabel" fill="#fff">#5 chisq_top2000 r=0.1 std=T it=50</text>
+<text x="506.0" y="232" class="small">0.5947</text>
+<rect x="70" y="245" width="426.5" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="260" class="barlabel" fill="#fff">#6 variance r=1.0 std=T it=50</text>
+<text x="502.5" y="260" class="small">0.5898</text>
+<rect x="70" y="273" width="421.7" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="288" class="barlabel" fill="#fff">#7 variance r=0.1 std=T it=10</text>
+<text x="497.7" y="288" class="small">0.5832</text>
+<rect x="70" y="301" width="420.2" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="316" class="barlabel" fill="#fff">#8 variance r=0.01 std=T it=50</text>
+<text x="496.2" y="316" class="small">0.5812</text>
+<rect x="70" y="329" width="419.6" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="344" class="barlabel" fill="#fff">#9 variance r=0.01 std=T it=10</text>
+<text x="495.6" y="344" class="small">0.5802</text>
+<rect x="70" y="357" width="415.4" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="372" class="barlabel" fill="#fff">#10 chisq_top2000 r=1.0 std=T it=10</text>
+<text x="491.4" y="372" class="small">0.5744</text>
+<rect x="70" y="385" width="406.8" height="22" rx="3" fill="#059669" opacity="0.9"/>
+<text x="76" y="400" class="barlabel" fill="#fff">#11 variance r=1.0 std=T it=10</text>
+<text x="482.8" y="400" class="small">0.5626</text>
+<rect x="70" y="413" width="406.2" height="22" rx="3" fill="#2563eb" opacity="0.9"/>
+<text x="76" y="428" class="barlabel" fill="#fff">#12 chisq_top2000 r=1.0 std=T it=50</text>
+<text x="482.2" y="428" class="small">0.5617</text>
+<text x="620" y="85" class="label" font-weight="700">Runtime vs validation F1</text>
+<line x1="620.0" y1="105" x2="620.0" y2="465" class="grid"/>
+<text x="606.0" y="483" class="small">0m</text>
+<line x1="721.4" y1="105" x2="721.4" y2="465" class="grid"/>
+<text x="707.4" y="483" class="small">10m</text>
+<line x1="822.9" y1="105" x2="822.9" y2="465" class="grid"/>
+<text x="808.9" y="483" class="small">20m</text>
+<line x1="924.3" y1="105" x2="924.3" y2="465" class="grid"/>
+<text x="910.3" y="483" class="small">30m</text>
+<line x1="1025.8" y1="105" x2="1025.8" y2="465" class="grid"/>
+<text x="1011.8" y="483" class="small">40m</text>
+<line x1="620" y1="465.0" x2="1030" y2="465.0" class="grid"/>
+<text x="582" y="469.0" class="small">0.0</text>
+<line x1="620" y1="354.2" x2="1030" y2="354.2" class="grid"/>
+<text x="582" y="358.2" class="small">0.2</text>
+<line x1="620" y1="243.5" x2="1030" y2="243.5" class="grid"/>
+<text x="582" y="247.5" class="small">0.4</text>
+<line x1="620" y1="132.7" x2="1030" y2="132.7" class="grid"/>
+<text x="582" y="136.7" class="small">0.6</text>
+<line x1="620" y1="465" x2="1030" y2="465" class="axis"/>
+<line x1="620" y1="105" x2="620" y2="465" class="axis"/>
+<circle cx="903.1" cy="130.6" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.6037879000269717, 'regParam': 0.01, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1674.2424306869507}</title></circle>
+<circle cx="704.9" cy="130.9" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.6031920295027465, 'regParam': 0.01, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 502.23520946502686}</title></circle>
+<circle cx="705.0" cy="131.2" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.6026544769043475, 'regParam': 0.1, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 502.5257077217102}</title></circle>
+<circle cx="874.5" cy="133.8" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5980229466363806, 'regParam': 0.1, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1505.4557225704193}</title></circle>
+<circle cx="902.0" cy="135.6" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5946774744818618, 'regParam': 0.1, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1668.1179673671722}</title></circle>
+<circle cx="804.1" cy="138.3" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5898280363380755, 'regParam': 1.0, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1088.9809901714325}</title></circle>
+<circle cx="701.3" cy="142.0" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5831514885728812, 'regParam': 0.1, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 480.8418126106262}</title></circle>
+<circle cx="902.9" cy="143.1" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5811838223224184, 'regParam': 0.01, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1673.440960407257}</title></circle>
+<circle cx="698.5" cy="143.6" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5802448371964078, 'regParam': 0.01, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 464.04595041275024}</title></circle>
+<circle cx="704.6" cy="146.9" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5744250549958666, 'regParam': 1.0, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 500.34918999671936}</title></circle>
+<circle cx="697.3" cy="153.4" r="6" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5625824367973273, 'regParam': 1.0, 'standardization': True, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 457.3152229785919}</title></circle>
+<circle cx="916.3" cy="153.9" r="6" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5617180894540059, 'regParam': 1.0, 'standardization': True, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1752.6065304279327}</title></circle>
+<rect x="949.3" y="162.0" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5381346746918162, 'regParam': 0.01, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1977.0793018341064}</title></rect>
+<rect x="924.0" y="165.9" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5310554351490115, 'regParam': 0.1, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1827.689598083496}</title></rect>
+<rect x="913.3" y="175.1" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.5144343262486758, 'regParam': 1.0, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1764.494301557541}</title></rect>
+<rect x="976.0" y="179.7" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5060373646273564, 'regParam': 0.1, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 2134.846981525421}</title></rect>
+<rect x="920.3" y="180.5" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5046457258444202, 'regParam': 0.01, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 1805.8592698574066}</title></rect>
+<rect x="1005.5" y="180.8" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.5041955819851528, 'regParam': 1.0, 'standardization': False, 'maxIter': 50, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 2309.4473838806152}</title></rect>
+<rect x="705.7" y="336.5" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.22299345354149194, 'regParam': 0.01, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 536.41015625}</title></rect>
+<rect x="723.3" y="342.6" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.21191789086732027, 'regParam': 0.01, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 640.3165085315704}</title></rect>
+<rect x="731.6" y="342.7" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.21177054247456994, 'regParam': 0.1, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 689.8358979225159}</title></rect>
+<rect x="703.8" y="342.7" width="10" height="10" fill="#059669" opacity="0.78"><title>{'variant': 'variance_threshold=0.001', 'val_f1': 0.21177054247456994, 'regParam': 1.0, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 525.1866548061371}</title></rect>
+<rect x="749.8" y="458.0" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.003693053017084792, 'regParam': 0.1, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 797.1032907962799}</title></rect>
+<rect x="768.9" y="458.8" width="10" height="10" fill="#2563eb" opacity="0.78"><title>{'variant': 'chisq_top2000', 'val_f1': 0.0022078697720048996, 'regParam': 1.0, 'standardization': False, 'maxIter': 10, 'filter_mode': 'chisq_2000_vs_variancethreshold', 'fit_seconds': 910.2340605258942}</title></rect>
+<text x="910" y="507" class="small">x: fit time, y: val F1</text>
+<rect x="70" y="535" width="300" height="96" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+<text x="88" y="563" class="subtitle">Best dev-set test F1</text>
+<text x="88" y="597" style="font-size:30px;font-weight:700;fill:#111827">0.6041</text>
+<text x="88" y="617" class="small">chisq_top2000, r=0.01, std=True, iter=50</text>
+<rect x="405" y="535" width="300" height="96" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+<text x="423" y="563" class="subtitle">Best val F1</text>
+<text x="423" y="597" style="font-size:30px;font-weight:700;fill:#111827">0.6038</text>
+<text x="423" y="617" class="small">same config as test-best</text>
+<rect x="740" y="535" width="300" height="96" rx="8" fill="#f9fafb" stroke="#e5e7eb"/>
+<text x="758" y="563" class="subtitle">Full-dataset test F1</text>
+<text x="758" y="597" style="font-size:30px;font-weight:700;fill:#111827">0.5674</text>
+<text x="758" y="617" class="small">fit 4.55h, eval 3.4m</text>
+<circle cx="75" cy="675" r="6" fill="#2563eb"/><text x="90" y="679" class="legend">ChiSq top 2000</text>
+<circle cx="225" cy="675" r="6" fill="#059669"/><text x="240" y="679" class="legend">Variance threshold 0.001</text>
+<circle cx="430" cy="675" r="6" fill="#111827"/><text x="445" y="679" class="legend">standardization=True</text>
+<rect x="600" y="669" width="12" height="12" fill="#111827"/><text x="620" y="679" class="legend">standardization=False</text>
+<text x="70" y="725" class="subtitle">Main pattern: standardization dominates; maxIter=50 improves the winner only marginally over maxIter=10, but costs about 3× more runtime.</text>
+</svg>

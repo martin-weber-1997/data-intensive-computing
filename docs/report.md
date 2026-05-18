@@ -1,213 +1,115 @@
-# Assignment 1 -- Chi-square Term Selection on the Amazon Reviews Corpus
+# Assignment 2: Text Processing and Classification using Apache Spark
 
----
+Contributing members: Martin Weber, Hussain Muhammad Bilal, Ayegwalo-Ogbogbo Clara Ochuwa, Gurrala Shreya, 	Maggetto Andrea
 
 ## 1. Introduction
 
+This assignment reimplements the Amazon Reviews text-processing workflow from Assignment 1 with Apache Spark and extends it into a supervised text-classification experiment. All required outputs were produced on the development set `reviews_devset.json`, which contains 78,829 reviews across 22 product categories. The submitted artefacts are `output_rdd.txt` for the RDD chi-square dictionary, `output_ds.txt` for the Spark ML selected TF-IDF vocabulary, and the notebooks/scripts in `src/data_intensive_computing/assignment2/`.
 
-This assignment builds a vocabulary from the Amazon Reviews 2014
-dataset (22 categories, 142.8 M reviews, 56 GB) by
-computing **chi-square** statistics for every `(term, category)`
-pair and keeping the 75 highest-scoring terms per category. The work is
-expressed entirely as Hadoop MapReduce jobs written in Python on top of
-`mrjob`, and runs on the TUWien LBD cluster (as well as locally with the test dataset if needed).
-For the local setup uv was used to provide fast usage and reproducability.
-
-Deliverables: 
-* `output.txt` — the top-75 discriminative terms per category, followed
-  by the merged alphabetical dictionary.
-* A report 
-* A `src/` directory with the fully documented MapReduce implementation
-  and a single `src/run_assignment1.sh` driver.
+The main design goal was to keep the implementations close to Spark's execution model: Part 1 uses RDD transformations and reductions for the same document-frequency chi-square statistic as Assignment 1  
+Part 2 uses a Spark ML pipeline for tokenisation, TF-IDF, and feature selection 
+Part 3 reuses that representation for a reproducible train/validation/test SVM experiment. 
 
 ## 2. Problem Overview
 
-### 2.1 Input
+The input consists of JSON reviews. Each record contributes the `reviewText` and `category` fields. Malformed records or rows without a category are ignored. Tokenisation follows the assignment delimiter set: whitespace, tabs, digits, and `()[]{}.!?,;:+=-_"'\`~#@&*%€$§\/`. Tokens are lower-cased/case-folded, filtered with the provided stopword list, and restricted to length at least two.
 
-A single NDJSON file on HDFS (`reviews_devset.json` for development,
-`reviewscombined.json` for the final run). Each line is a review with at
-least the fields `reviewText` (string) and `category` (string). All other
-fields are ignored.
+Part 1 computes the Assignment 1 chi-square document-presence statistic for every `(term, category)` pair and writes the top 75 terms per category plus the sorted union dictionary. Part 2 builds a classic vector-space representation using Spark ML and writes the 2000 terms selected by `ChiSqSelector`. Part 3 trains a category classifier from the Part 2 feature pipeline, using a one-vs-rest strategy with binary linear SVMs since this was the limitation given and multiple classes need to be prediced.
+F1 is used as the evaluation metric.
 
-### 2.2 Preprocessing requirements
-
-Tokens are extracted per review by:
-
-1. **Tokenization** — splitting on whitespace, digits, and the character
-   class `()[]{}.!?,;:+=-_"'` `~#@&*%€$§\/`, implemented as a single
-   compiled `re` pattern (`DELIMITER_PATTERN` in `chi_square.py`).
-2. **Case folding** — via `str.casefold()` applied to the review text
-   before splitting.
-3. **Stopword filtering** — the provided `stopwords.txt` is loaded once
-   per mapper into a Python `set`; tokens present in the set are
-   dropped. Tokens of length ≤ 1 are also dropped.
-
-This was its own class in a first step but since it is only needed in *chi_sqare.py* was inlined. 
-
-### 2.3 Target metric
-
-For a term `t` and a category `c` we build the 2×2 contingency table
-
-|                       | contains `t`              | does **not** contain `t`         |
-| --------------------- | ------------------------- | -------------------------------- |
-| **in `c`**            | `A = N_tc`                | `C = N_c - N_tc`                 |
-| **not in `c`**        | `B = N_t - N_tc`          | `D = N - N_c - N_t + N_tc`       |
-
-where
-
-* `N` = total number of reviews,
-* `N_c` = reviews in category `c`,
-* `N_t` = reviews containing term `t`,
-* `N_tc` = reviews in `c` containing `t`.
-
-The chi-square statistic is
-
-```
-           N · (A·D - B·C)²
-chi^2 (t, c) = ─────────────────────────────────
-           N_t · (N - N_t) · N_c · (N - N_c)
-```
-
-### 2.4 Required outputs
-
-One line per category (alphabetical) with the top 75 terms in the form
-`<category> term_1:chi^2_1 term_2:chi^2_2 ...`, followed by a line holding
-the alphabetically sorted union of all selected terms.
-The final sorting and building happens in the run.py
-
-### 2.5 Challenges
-
-The work is parallel at the mapper side (tokenization is
-per-review) but requires three joins that force shuffles:
-
-* `N_tc` ← group by `(term, category)`,
-* `N_t` and chi^2 ← group by `term` (needs all categories the term appears
-  in),
-* top-75 + merge ← group by `category` (needs all `(chi^2, term)` pairs for
-  that category).
-
-The efficiency bottleneck should be shuffle volume at each
-stage (use of combiners, document-level instead of token-level
-counting, bounded-memory top-N) and keeping the global aggregates `N`
-and `N_c` out of the main shuffle path (broadcast as a tiny side
-input).
+The three parts intentionally do not select identical vocabularies as stated in the exercise definition. Part 1 ranks binary term presence per category, while Part 2 selects a single global top-2000 feature set over TF-IDF-valued vectors. This changes both the representation and the selection scope.
 
 ## 3. Methodology and Approach
 
-### 3.1 Pipeline overview
+![Assignment 2 Spark pipeline](assignment2_pipeline.svg)
 
-The solution is split into **two `mrjob` MapReduce jobs** orchestrated
-by `run.py`:
+### Part 1: RDD chi-square
 
-1. **`MRDocCounts`** — one step, produces a tiny JSON file
-   `{<category>: N_c, ...}`. `N` is derived downstream as
-   `sum(N_c.values())` — every review belongs to exactly one category,
-   so carrying a separate global counter would be redundant.
-2. **`MRChiSquare`** — three steps consuming the corpus once, with the stats JSON uploaded as side
-   input via `--file` so every reducer in step 2 has access to `N_c`
-   without an extra shuffle.
+The RDD notebook parses each review into `(category, token_set)` records and caches that RDD because it is reused for category counts and term/category counts. `N_c` and total `N` are computed with `reduceByKey` and collected as a small driver-side dictionary, then broadcast for the chi-square calculation.
 
-The driver  writes `output.txt` and merges the global dictionary
-line. No data other than the `output.txt` ever leaves HDFS.
+For the heavy term statistics, the implementation emits `((term, category), 1)` once per review, not once per token occurrence. This preserves document frequency and avoids counting repeated words inside the same review. `reduceByKey` produces `N_tc`; records are then re-keyed by term so that `N_t = sum_c N_tc` can be computed in one place. The reducer emits `(category, (chi2, term))`, and a bounded heap keeps only the top 75 entries per category. The final output formatting sorts categories alphabetically and appends the joined dictionary.
 
-### 3.2 Data-flow and `<key, value>` design
-![img_1.png](img_1.png)
-In the given picture one can see our high level setup of MRJobs as well as their respective inputs and outputs for the different steps. 
-It starts of with job 1 which builds a sum of entries per category. 
-This should reduce shuffling and data movement in downstream jobs and is thus supplied to the other MR job as a json file. 
-The ChiSquare calculation is done in 3 steps where in 
-- 1 we build sums for (term,category) pairs.
-- 2 calculate chi^2 per (term,category)
-- 3 get top N per category
+### Part 2: DataFrame/Spark ML vocabulary selection
 
-### 3.3 Per-step details
+The DataFrame pipeline is:
 
-**Job 1 — `MRDocCounts`.** A single MR step that emits `(category, 1)`
-for every review, combines and reduces by summing. The output is 22
-lines. It exists solely to avoid recomputing `N_c` inside every step-2
-reducer or scanning the corpus twice in Job 2.
+`RegexTokenizer -> StopWordsRemover -> CountVectorizer -> IDF -> StringIndexer -> ChiSqSelector(numTopFeatures=2000)`
 
-**Job 2, Step 1 — `(term, category)` document frequency.**
+`RegexTokenizer` uses the assignment delimiter regex with `gaps=True`, and `StopWordsRemover` uses the provided stopword file. `CountVectorizer` learns the vocabulary from the corpus, `IDF` produces TF-IDF features, `StringIndexer` maps category labels to numeric labels, and `ChiSqSelector` selects 2000 feature indices overall. The selected indices are mapped back through the learned `CountVectorizer` vocabulary and written alphabetically to `output_ds.txt`.
 
-* `mapper_init_s1` loads `stopwords.txt` once per task into a `set`.
-* `mapper_s1` parses the JSON line, tokenizes and deduplicates then emits `((term, category), 1)`
-  regardless of how often the term appears in that review. This gives
-  **document frequency**.
-* `combiner_s1` and `reducer_s1` sum the `1`s. The combiner collapses `1`s into a single partial sum inside each map task, which should save a lot of shuffle work. 
+### Part 3: classification experiment
 
-**Job 2, Step 2 — chi^2 per term.**
+The classification pipeline extends Part 2 with `Normalizer(p=2.0)` and `OneVsRest(LinearSVC)`. The split is reproducible with seed `11817173`.
 
-* `mapper_s2` re-keys the step-1 output from `(term, category) → N_tc`
-  to `term → (category, N_tc)`, so that every reducer invocation sees
-  the full distribution of a term over categories.
-* `reducer_init_s2` reads `stats.json` once into memory and derives
-  `N = sum(N_c.values())`.
-* `reducer_s2` computes `N_t` as the sum of `N_tc` over the
-  incoming pairs, then emits `(category, (xhi^2, term))`
-  for each category the term appears in. 
-* 
-**Job 2, Step 3 — top-75 per category.**
+The grid search compares the required `ChiSqSelector(numTopFeatures=2000)` representation with a heavier, lower-dimensional `VarianceThresholdSelector(varianceThreshold=0.001)` alternative. For each selector, the SVM grid varies:
 
-* `reducer_s3` uses `heapq.nlargest(75, values)` to keep only the best
-  75 `(chi^2, term)` pairs per category in `O(75)` memory, independent of
-  how many distinct terms appear in that category. The reducer output
-  is already sorted in chi^2 descending order.
+| parameter | values |
+|---|---|
+| `regParam` | `0.01`, `0.1`, `1.0` |
+| `standardization` | `True`, `False` |
+| `maxIter` | `10`, `50` |
 
-**Post-processing.** `run.py` collects the step-3 output, sorts
-categories alphabetically, formats each line as the assignment
-requires, and appends the merged dictionary line.
+This yields 24 configurations. To reduce overhead, the implementation fits and caches the preprocessing/feature stages once per selector variant, materialises only `label, features`, and then fits independent one-vs-rest SVM models for the classifier grid. This avoids repeatedly fitting `CountVectorizer`, `IDF`, `StringIndexer`, and the selector for every SVM configuration.
 
-### 3.4 Partitioning, sorting, combining
+## 4. Results
 
-* **Partitioning** uses `mrjob`'s default hash partitioner on the
-  JSON-serialised key. Step 1 partitions on `(term, category)` tuples,
-  step 2 on `term`, step 3 on `category`. No custom partitioner was used or tried since performance seemed adequate.
-* **Sorting** is the default lexical ordering of the serialized keys.
-  The reducers never rely order, so no secondary sort is required.
-* **Combiners** are enabled in Job 1 (sum per category) and Step 1 of
-  Job 2 (sum per `(term, category)`). Both are plain commutative which is why we can use them. 
-  Step 2 and step 3 have no combiner because their reducers are not
-  associative over partial lists.
-* **Reducer counts** are tuned per step and exposed via CLI flags
-  (`--reducers-s1/s2/s3`, defaults 60/60/22). 60 was taken as a guess and no further tuning was done since performance semed adequate.
-    22 is the number of categories. 
-* 
+### Part 1 output comparison
 
-### 3.6 Running the pipeline
+`output_rdd.txt` contains 22 category rows and a final joined dictionary with 1,464 unique terms. The RDD output has the same structure as the Assignment 1 output: category-specific top terms followed by the alphabetical union.
 
-A single driver script covers both local and cluster execution:
+The `output.txt` of exercise 1 is not byte-identical to `output_rdd.txt`, and its chi-square values are now much larger, because exercise 2 was only executed on the devset while exercise 1 was run on the whole dataset. 
 
-```bash
-# Local dev (inline runner, devset)
-./src/run_assignment1.sh data/reviews_devset.json
+### Part 2 vocabulary comparison
 
-# Cluster (devset)
-RUNNER=hadoop ./src/run_assignment1.sh \
-    hdfs:///dic_shared/amazon-reviews/full/reviews_devset.json
+| set | size |
+|---|---:|
+| Part 2 `output_ds.txt` | 2,000 |
+| Part 1 joined dictionary | 1,464 |
+| Intersection | 751 |
+| Part 2 only | 1,249 |
+| Part 1 only | 713 |
 
-# Cluster (full 56 GB set — only after a clean devset run)
-RUNNER=hadoop ./src/run_assignment1.sh \
-    hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json
-```
+The overlap is about 51% of the Part 1 dictionary. This is expected because Part 1 uses binary document-presence chi-square and keeps the top 75 terms per category, while Part 2 applies `ChiSqSelector` globally to TF-IDF features. Strong per-category terms such as `crib`, `acne`, `dewalt`, `medela`, and `aquarium` appear in Part 1 but not in `output_ds.txt`. Conversely, Part 2 includes more generic words such as `access`, `account`, `adult`, `advice`, `amazing`, and `american`, which have TF-IDF value distributions that Spark's global selector keeps even though they are not among any category's top 75 binary-presence terms.
 
-All paths are relative; the HDFS input path is the only positional
-argument. Reducer counts can be overridden via env vars
-(`REDUCERS_S1`, `REDUCERS_S2`, `REDUCERS_S3`).
+### Part 3 classification results
 
-The driver resolves its own directory so it works regardless of the
-caller's `cwd`, prefers `uv run python` when available (and otherwise
-falls back to `python3` with `PYTHONPATH` pointing at `src/` for the
-cluster), and only injects `--hadoop-streaming-jar` when
-`RUNNER=hadoop` (overridable via `HADOOP_STREAMING_JAR`). This keeps a
-single entry point for both local and cluster execution without
-duplicating wiring in `run.py`.
+The best development-set validation result is obtained by the label-aware chi-square selector:
 
-## 4. Conclusions
+| selector variant | best parameters | validation F1 | test F1 |
+|---|---|---:|---:|
+| `chisq_top2000` | `regParam=0.01`, `standardization=True`, `maxIter=50` | 0.6038 | 0.6041 |
+| `variance_threshold=0.001` | `regParam=0.1`, `standardization=True`, `maxIter=50` | 0.5980 | not selected |
 
-The pipeline separates the two classes of aggregation the
-problem demands: a small global aggregation (`N_c`) broadcast as a side
-input, and a heavy, term-partitioned aggregation (`N_tc`, chi^2, top-N)
-driven as a three-step MRJob. This keeps the corpus read to exactly two
-full passes (once for Job 1, once for Job 2) and keeps the most expensive shuffle 
-step 1 of Job 2 in the smallest possible form because of the document-level `set()`
-deduplication and the per-task combiner.
+Top validation configurations:
+
+![Top validation F1 configurations](part3_plots/01_top_validation_configs.png)
+
+| rank | variant | `regParam` | `standardization` | `maxIter` | validation F1 |
+|---:|---|---:|:---:|---:|---:|
+| 1 | `chisq_top2000` | 0.01 | True | 50 | 0.6038 |
+| 2 | `chisq_top2000` | 0.01 | True | 10 | 0.6032 |
+| 3 | `chisq_top2000` | 0.1 | True | 10 | 0.6027 |
+| 4 | `variance_threshold=0.001` | 0.1 | True | 50 | 0.5980 |
+| 5 | `chisq_top2000` | 0.1 | True | 50 | 0.5947 |
+
+The strongest effect is `standardization=True`. With that enabled, the mean validation F1 is 0.5863; without it, the mean drops to 0.3302. `maxIter=50` gives the highest single score, but the best `maxIter=10` model is only 0.0006 F1 lower and trains much faster (about 2x+ speedup on the cluster on a per config time basis). `regParam=0.01` is best for the chi-square top-2000 representation, while the variance-threshold representation prefers `regParam=0.1`.
+
+![Standardization effect](part3_plots/04_standardization_effect.png)
+
+### Full-dataset best-run finding
+
+As an additional non-required experiment, the single best development-set configuration was also run once on the full `reviewscombined.json` corpus. This was not a full grid search on the whole dataset. We just reused the selected model shape, `ChiSqSelector(numTopFeatures=2000)` with `LinearSVC(regParam=0.01, standardization=True, maxIter=50)`.
+
+![Development vs full test F1](part3_plots/05_dev_vs_full_test_f1.png)
+
+| input | total reviews | train+validation | test | test F1 | fit time | eval time |
+|---|---:|---:|---:|---:|---:|---:|
+| full `reviewscombined.json` | 78,828,876 | 63,066,555 | 15,762,321 | 0.5674 | about 4h | 3.4 min |
+
+The full-data run confirms that the chosen development-set configuration scales to the mandatory large corpus, but the F1 drops from 0.6041 on the development-set test split to 0.5674 on the full-data test split.
+
+## 5. Conclusions
+
+The RDD implementation reproduces the Assignment 1 style of binary document-frequency chi-square selection in Spark while keeping shuffle volume controlled through per-review token deduplication and reduction by `(term, category)`. The DataFrame pipeline follows the requested Spark ML design and produces a different but explainable vocabulary because TF-IDF-valued global chi-square selection is not equivalent to per-category binary chi-square.
+
+For classification, the best model is `ChiSqSelector(numTopFeatures=2000)` followed by L2 normalisation and `OneVsRest(LinearSVC)` with `regParam=0.01`, `standardization=True`, and `maxIter=50`. It reaches 0.6038 validation F1 and 0.6041 held-out test F1 on the development set. The variance-threshold alternative is close but slightly weaker, so the label-aware chi-square feature selection remains the preferred choice. The experiments also show that SVM standardisation matters more than the exact selector choice in this setup.

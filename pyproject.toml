@@ -5,10 +5,15 @@ description = "Local PySpark exercises managed with uv."
 readme = "README.md"
 requires-python = "==3.12.*"
 dependencies = [
+    "matplotlib>=3.10.9",
     "mrjob>=0.7,<0.8",
+    "numpy>=2.4.4",
+    "pandas>=3.0.3",
     "pyspark>=3.5,<4.0",
     # mrjob 0.7.x still imports distutils; setuptools re-provides it on 3.12
     # via its _distutils_hack, so we pin it for a working local runner.
+    "reportlab>=4.5.1",
+    "seaborn>=0.13.2",
     "setuptools<72",
 ]
 

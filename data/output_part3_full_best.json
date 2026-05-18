@@ -1,0 +1,22 @@
+{
+  "seed": 11817173,
+  "input_path": "hdfs:///dic_shared/amazon-reviews/full/reviewscombined.json",
+  "split": {
+    "total": 78828876,
+    "train": 47304375,
+    "val": 15762180,
+    "trainval": 63066555,
+    "test": 15762321
+  },
+  "variant": "chisq_top2000",
+  "best_params_from_devset": {
+    "regParam": 0.01,
+    "standardization": true,
+    "maxIter": 50
+  },
+  "ovr_parallelism": 4,
+  "coalesce_training_data": false,
+  "fit_seconds": 16373.35595369339,
+  "eval_seconds": 204.42095160484314,
+  "test_f1": 0.5673744693227935
+}

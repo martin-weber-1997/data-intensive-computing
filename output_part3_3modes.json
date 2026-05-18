@@ -1,0 +1,654 @@
+{
+  "seed": 11817173,
+  "cv_mode": "tvs",
+  "filter_modes": [
+    "chisq_2000_vs_200",
+    "chisq_2000_vs_fpr",
+    "chisq_2000_vs_hashingtf"
+  ],
+  "split": {
+    "train": 47492,
+    "val": 15502,
+    "test": 15835
+  },
+  "per_mode": {
+    "chisq_2000_vs_200": {
+      "variant": "chisq_2000_vs_200",
+      "best_val_f1": 0.5992384983447989,
+      "test_f1": 0.6106303241330345,
+      "best_params": {
+        "numTopFeatures": 2000,
+        "regParam": 0.01,
+        "standardization": true,
+        "maxIter": 50
+      },
+      "elapsed_seconds": 6563.216418027878
+    },
+    "chisq_2000_vs_fpr": {
+      "variant": "chisq_2000_vs_fpr",
+      "best_val_f1": 0.6158837827638091,
+      "test_f1": 0.6277407172509463,
+      "best_params": {
+        "selectorType": "fpr",
+        "fpr": 0.001,
+        "regParam": 0.1,
+        "standardization": true,
+        "maxIter": 50
+      },
+      "elapsed_seconds": 5761.223040819168
+    },
+    "chisq_2000_vs_hashingtf": {
+      "variant": "chisq_2000",
+      "best_val_f1": 0.5988705396440969,
+      "test_f1": 0.6103051014671145,
+      "best_params": {
+        "regParam": 0.01,
+        "standardization": true,
+        "maxIter": 50
+      },
+      "elapsed_seconds": 3961.6300461292267
+    }
+  },
+  "all_results": [
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.6158837827638091,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.6120400748414002,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.609524961358571,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.6046879058513837,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.5992384983447989,
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5990011072713072,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5988705396440969,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5984518442938862,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.598385354866904,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.5970657659943533,
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.5964606873511017,
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.596364667146144,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5955984483723532,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5901680465271858,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5899806885341948,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5887777819279256,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.58861105361228,
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5878148438686879,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.5549760423946932,
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5538956201643837,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5534195738641708,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.5482389246134176,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.5478948736404549,
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.5468237388206353,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.51122289558861,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.509185480509024,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.4988304237793142,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.48592695678685893,
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.48572007036413845,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.4856923805818442,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.4852918622910992,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.4848690177927506,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.4846024022763754,
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.48450472706407216,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.4842431263658858,
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.4824693514408891,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.41438572024732906,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.39116380035261455,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.3890038046521832,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3768778184948217,
+      "numTopFeatures": 200,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3714579548773987,
+      "numTopFeatures": 200,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.3664487972975438,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3662209964773255,
+      "numTopFeatures": 200,
+      "regParam": 0.01,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3585299142212547,
+      "numTopFeatures": 200,
+      "regParam": 0.1,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.34588678250664334,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.34224123800080986,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.34174225967255684,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.3415334697788825,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.3392104976421194,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3352871016078475,
+      "numTopFeatures": 200,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.3320269564496934,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.331751765094964,
+      "numTopFeatures": 200,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.32687270072940344,
+      "numTopFeatures": 200,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.32540718336929997,
+      "numTopFeatures": 200,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.32465370802837107,
+      "numTopFeatures": 200,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 50
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3238582305967322,
+      "numTopFeatures": 200,
+      "regParam": 1.0,
+      "standardization": true,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.3223007622491855,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3121942518691445,
+      "numTopFeatures": 2000,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.3060042162808983,
+      "numTopFeatures": 200,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.2288637057458315,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.20082001054347562,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.12469104643020162,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.12469104643020162,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.01,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.12469104643020162,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.12469104643020162,
+      "selectorType": "fpr",
+      "fpr": 0.001,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.07682189699597577,
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.07344986889124297,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "hashingtf_512",
+      "val_f1": 0.005913247385798014,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 0.0022576842650972673,
+      "numTopFeatures": 2000,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_hashingtf",
+      "variant": "chisq_2000",
+      "val_f1": 0.0015950645025935393,
+      "regParam": 1.0,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_fpr",
+      "val_f1": 0.000569678084451413,
+      "selectorType": "numTopFeatures",
+      "numTopFeatures": 2000,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    },
+    {
+      "filter_mode": "chisq_2000_vs_200",
+      "val_f1": 9.344765459606155e-05,
+      "numTopFeatures": 200,
+      "regParam": 0.1,
+      "standardization": false,
+      "maxIter": 10
+    }
+  ]
+}

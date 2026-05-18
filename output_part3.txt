@@ -1,0 +1,32 @@
+seed: 11817173
+cv_mode: manual_precomputed_features_grid
+split: train=47492 val=15502 test=15835
+
+best per filter mode:
+  chisq_2000_vs_variancethreshold  variant=chisq_top2000   val_f1=0.6107  test_f1=0.6029  params={'regParam': 0.01, 'standardization': True, 'maxIter': 50}
+
+all configs (sorted by val F1):
+  val_f1=0.6107  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.01, 'standardization': True, 'maxIter': 50}
+  val_f1=0.6098  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.01, 'standardization': True, 'maxIter': 10}
+  val_f1=0.6079  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.1, 'standardization': True, 'maxIter': 10}
+  val_f1=0.6054  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.1, 'standardization': True, 'maxIter': 50}
+  val_f1=0.6037  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.1, 'standardization': True, 'maxIter': 50}
+  val_f1=0.5936  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 1.0, 'standardization': True, 'maxIter': 50}
+  val_f1=0.5870  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.1, 'standardization': True, 'maxIter': 10}
+  val_f1=0.5852  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.01, 'standardization': True, 'maxIter': 50}
+  val_f1=0.5823  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.01, 'standardization': True, 'maxIter': 10}
+  val_f1=0.5782  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 1.0, 'standardization': True, 'maxIter': 10}
+  val_f1=0.5711  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 1.0, 'standardization': True, 'maxIter': 10}
+  val_f1=0.5684  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 1.0, 'standardization': True, 'maxIter': 50}
+  val_f1=0.5466  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.01, 'standardization': False, 'maxIter': 50}
+  val_f1=0.5432  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.1, 'standardization': False, 'maxIter': 50}
+  val_f1=0.5138  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.1, 'standardization': False, 'maxIter': 50}
+  val_f1=0.5130  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 1.0, 'standardization': False, 'maxIter': 50}
+  val_f1=0.5121  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.01, 'standardization': False, 'maxIter': 50}
+  val_f1=0.2149  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.01, 'standardization': False, 'maxIter': 10}
+  val_f1=0.2143  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.01, 'standardization': False, 'maxIter': 10}
+  val_f1=0.2142  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 0.1, 'standardization': False, 'maxIter': 10}
+  val_f1=0.2142  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 1.0, 'standardization': False, 'maxIter': 10}
+  val_f1=0.0395  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 1.0, 'standardization': False, 'maxIter': 10}
+  val_f1=0.0291  mode=chisq_2000_vs_variancethreshold  {'variant': 'chisq_top2000', 'regParam': 0.1, 'standardization': False, 'maxIter': 10}
+  val_f1=0.0002  mode=chisq_2000_vs_variancethreshold  {'variant': 'variance_threshold=0.001', 'regParam': 1.0, 'standardization': False, 'maxIter': 50}
